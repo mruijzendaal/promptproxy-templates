@@ -15,7 +15,7 @@ Sign up at [prompt-proxy.com](https://prompt-proxy.com) and get your API key fro
 Set rate-limits, token-limits, and endpoint rules in the dashboard to control costs and usage.
 
 3. **Connect your billing provider**  
-Connect your Stripe, Polar, or Mollie account.
+Connect your Stripe, Polar, or Mollie account. Skip this step if you don't need to charge users yet.
 
 4. **Select your auth provider**  
 How are you handling user authentication? We have templates for Firebase, Supabase and Auth0. Not using one of these? Let us know, and we can help you set it up.
