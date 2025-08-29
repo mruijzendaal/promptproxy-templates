@@ -1,0 +1,19 @@
+{
+  // Launch configuration for Flutter web (Chrome)
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter: Chrome",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+      "args": [
+        "-d",
+        "chrome",
+        "--web-browser-flag",
+        "\"--disable-web-security\""
+      ]
+    }
+  ]
+}
