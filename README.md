@@ -2,7 +2,7 @@
 <img src="https://prompt-proxy.com/logo_text.svg" height="100" alt="PromptProxy Logo" />
 
 # PromptProxy: *your AI apps, our billing back-end*
-Skip developing the boring stuff. [PromptProxy ](https://prompt-proxy.com) handles your **billing** back-end and **user crediting**, so you can focus on shipping AI features.
+Skip developing the boring stuff. [PromptProxy](https://prompt-proxy.com) handles your **billing** back-end and **user crediting**, so you can focus on shipping AI features.
 
 
 ## Getting started
@@ -24,13 +24,32 @@ How are you handling user authentication? We have templates for Firebase, Supaba
 Replace your existing LLM API calls with calls to PromptProxy. See examples below.
 
 
-### Demo projects
+## Demo projects
 
 This repository contains example templates demonstrating how to use PromptProxy with various front-end frameworks and plain HTML. Each template showcases different features and integrations to help you get started quickly.
 
-- Plain HTML with TailwindCSS:  [demo](https://mruijzendaal.github.io/html-preview.github.io/?url=https://github.com/mruijzendaal/promptproxy-templates/blob/main/templates/static_html/index.html), [source](/templates/static_html/)
-- Flutter: [source](templates/flutter/)
-- SvelteKit (coming soon)
+### Plain HTML
+[demo](https://mruijzendaal.github.io/html-preview.github.io/?url=https://github.com/mruijzendaal/promptproxy-templates/blob/main/templates/static_html/index.html), [source](/templates/static_html/)
+
+One can quickly get started with a simple static HTML page. This can be hosted on many places for free (e.g. GitHub Pages, Netlify, Vercel, Firebase).
+
+### Flutter
+[demo project source](templates/flutter/)
+
+Flutter projects are normally restricted from making LLM calls directly from the app, due to API key exposure risks. However, when using PromptProxy, you can safely make these calls directly from your Flutter app, as the proxy handles authentication and billing securely.
+
+The easiest implementation of a chat uses the [official Flutter AI Toolkit](https://docs.flutter.dev/ai-toolkit) and [flutter_ai_providers](https://pub.dev/packages/flutter_ai_providers/). 
+
+Install using `flutter pub add flutter_ai_toolkit flutter_ai_providers`, then add this widget:
+```dart
+LlmChatView(
+    provider: OpenAIProvider(
+        baseUrl: 'https://api.prompt-proxy.com/v1',
+        apiKey: _apiKey,
+        model: 'gpt-4.1-nano',
+    ),
+)
+```
 
 ### OpenAI Node.js SDK
 
