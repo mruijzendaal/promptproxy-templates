@@ -29,7 +29,7 @@ Replace your existing LLM API calls with calls to PromptProxy. See examples belo
 This repository contains example templates demonstrating how to use PromptProxy with various front-end frameworks and plain HTML. Each template showcases different features and integrations to help you get started quickly.
 
 - Plain HTML with TailwindCSS:  [demo](https://mruijzendaal.github.io/html-preview.github.io/?url=https://github.com/mruijzendaal/promptproxy-templates/blob/main/templates/static_html/index.html), [source](/templates/static_html/)
-- Flutter (coming soon)
+- Flutter: [source](templates/flutter/)
 - SvelteKit (coming soon)
 
 ### OpenAI Node.js SDK
