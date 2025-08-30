@@ -8,12 +8,7 @@
       "type": "dart",
       "flutterMode": "debug",
       "program": "lib/main.dart",
-      "args": [
-        "-d",
-        "chrome",
-        "--web-browser-flag",
-        "\"--disable-web-security\""
-      ]
+      "args": ["-d", "chrome"]
     }
   ]
 }
