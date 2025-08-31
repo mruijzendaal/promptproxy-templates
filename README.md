@@ -28,6 +28,11 @@ Replace your existing LLM API calls with calls to PromptProxy. See examples belo
 
 This repository contains example templates demonstrating how to use PromptProxy with various front-end frameworks and plain HTML. Each template showcases different features and integrations to help you get started quickly.
 
+- [Plain HTML](#plain-html)
+- [Flutter](#flutter)
+- [OpenAI Node.js SDK](#openai-nodejs-sdk)
+- [Simple fetch](#simple-fetch)
+
 ### Plain HTML
 [demo](https://mruijzendaal.github.io/html-preview.github.io/?url=https://github.com/mruijzendaal/promptproxy-templates/blob/main/templates/static_html/index.html), [source](/templates/static_html/)
 
@@ -100,7 +105,14 @@ const res = await fetch(
 
 Configurations are set in the [PromptProxy dashboard](https://prompt-proxy.com/dashboard), but are documented here for reference.
 
+- [Proxy modes](#proxy-modes) configure the body of the requests.
+- [Authentication](#authentication) configures how users are identified.
+- [Rules](#rules) configure how users earn and spend credits.
+- [Limits](#limits) configure how many requests and tokens can be used.
+- [Abuse prevention](#abuse-prevention) configures how to block abusive users.
+
 ### Proxy modes
+
 In all modes, PromptProxy manages user credits and billing. The modes differ only in how requests are forwarded to the LLM provider.
 
 - **Forward mode**.  
