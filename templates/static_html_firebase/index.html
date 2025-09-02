@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PromptProxy: HTML example</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://prompt-proxy.com/favicon.svg"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      /* Any custom classes */
+    </style>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/12.2.1/firebase-app-compat.js"></script>
+
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/12.2.1/firebase-auth-compat.js"></script>
+    <!-- FirebaseUI for Auth -->
+
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css  "
+    />
+    <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+    <!-- Your Firebase config and UI logic -->
+    <script src="firebase-init.js"></script>
+  </head>
+  <body class="min-h-screen flex items-center justify-center bg-stone-100">
+    <div class="p-8 w-full max-w-xl">
+      <!-- FirebaseUI Auth Container -->
+      <div id="firebaseui-auth-container" class="mb-6"></div>
+      <div id="user-info" class="hidden mb-6 text-center">
+        <span class="font-semibold text-green-700"
+          >Logged in as <span id="user-email"></span
+        ></span>
+        <button
+          id="logout-btn"
+          class="ml-4 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
+      <img
+        src="https://prompt-proxy.com/logo_text.svg"
+        alt="PromptProxy Logo"
+        class="mx-auto h-32 w-auto mb-4"
+        width="240"
+        height="48"
+      />
+      <h1 class="text-5xl font-bold text-gray-900">PromptProxy example</h1>
+      <h2 class="text-3xl font-bold text-gray-500 mb-6">Plain HTML</h2>
+
+      <form id="chat-form" class="space-y-4">
+        <div>
+          <label class="block text-gray-700 font-medium" for="api-key"
+            >PromptProxy API Key</label
+          >
+          <p class="mb-2 text-gray-500">
+            To use this in your own plain HTML page, you would hardcode this API
+            key there. This is safe to do: You set rate-limits, token-limits,
+            model restrictions, and endpoint rules in our UI.
+            <br class="mb-2" />
+            <br class="mb-2" />
+            Get your key at
+            <a
+              href="https://prompt-proxy.com"
+              class="text-blue-600 hover:underline"
+              >prompt-proxy.com</a
+            >.
+          </p>
+          <input
+            id="api-key"
+            type="password"
+            required
+            placeholder="Get your PromptProxy "
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+          />
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium" for="prompt"
+            >Prompt</label
+          >
+          <p class="text-gray-500 mb-2">
+            To use this in your own plain HTML page, you could hardcode your own
+            prompt, or have some dynamic user input.
+          </p>
+          <textarea
+            id="prompt"
+            required
+            rows="3"
+            placeholder="Type your prompt here..."
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+          ></textarea>
+        </div>
+        <button
+          id="submit-btn"
+          type="submit"
+          class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition disabled:bg-blue-200"
+        >
+          Submit
+        </button>
+      </form>
+      <div id="response-container" class="mt-6">
+        <label class="block text-gray-700 font-medium mb-1">Response</label>
+        <pre
+          id="response"
+          class="border w-full min-h-[100px] p-4 bg-gray-100 rounded-lg text-gray-800 whitespace-pre-wrap"
+        ></pre>
+      </div>
+    </div>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCXYBJ3igXJ5jm3uTSb-FITHOWgD-Aun_0",
+        authDomain: "promptproxy-demo-static-html.firebaseapp.com",
+        projectId: "promptproxy-demo-static-html",
+        storageBucket: "promptproxy-demo-static-html.firebasestorage.app",
+        messagingSenderId: "883919436600",
+        appId: "1:883919436600:web:0eb1745be38c85f6e71fcd",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      console.log("Firebase initialized");
+
+      // FirebaseUI config
+      const uiConfig = {
+        signInFlow: "popup",
+        signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+        tosUrl: "",
+        privacyPolicyUrl: "",
+        callbacks: {
+          signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+            console.log("Sign in success", authResult);
+            return false; // Don't redirect
+          },
+          signInFailure: function (error) {
+            console.log("Sign in failure", error);
+          },
+        },
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+      // Expose a function to start the UI
+      function startFirebaseUi() {
+        ui.start("#firebaseui-auth-container", uiConfig);
+      }
+
+      // Show FirebaseUI or user info depending on auth state
+      document.addEventListener("DOMContentLoaded", function () {
+        firebase.auth().onAuthStateChanged(function (user) {
+          const userInfo = document.getElementById("user-info");
+          const userEmail = document.getElementById("user-email");
+          const logoutBtn = document.getElementById("logout-btn");
+          const loginContainer = document.getElementById(
+            "firebaseui-auth-container"
+          );
+          console.log("Auth state changed", user);
+          console.log(user);
+          if (user) {
+            // User is signed in
+            userInfo.classList.remove("hidden");
+            userEmail.textContent = user.email;
+            loginContainer.style.display = "none";
+            logoutBtn.style.display = "";
+            if (logoutBtn) {
+              logoutBtn.onclick = function () {
+                firebase.auth().signOut();
+              };
+            }
+          } else {
+            // No user signed in
+            userInfo.classList.add("hidden");
+            loginContainer.style.display = "";
+            if (typeof startFirebaseUi === "function") startFirebaseUi();
+          }
+        });
+      });
+      const form = document.getElementById("chat-form");
+      const responseField = document.getElementById("response");
+      const apiInput = document.getElementById("api-key");
+      const promptInput = document.getElementById("prompt");
+      const submitBtn = document.getElementById("submit-btn");
+
+      function updateSubmitVisibility() {
+        const apiVal = apiInput.value.trim();
+        const promptVal = promptInput.value.trim();
+        submitBtn.disabled = !(apiVal && promptVal);
+      }
+
+      apiInput.addEventListener("input", updateSubmitVisibility);
+      promptInput.addEventListener("input", updateSubmitVisibility);
+      // Initial state
+      updateSubmitVisibility();
+
+      form.addEventListener("submit", async (e) => {
+        // Optionally, require login before allowing submit:
+        if (!firebase.auth().currentUser) {
+          alert("Please log in with Google first.");
+          return;
+        }
+        e.preventDefault();
+        responseField.textContent = "Loading...";
+        const apiKey = apiInput.value.trim();
+        const prompt = promptInput.value.trim();
+        try {
+          // Get the Firebase ID token
+          const idToken = await firebase.auth().currentUser.getIdToken();
+
+          const res = await fetch(
+            // Normally, you would use the OpenAI endpoint directly:
+            // "http://api.openai.com/v1/chat/completions",
+            // Replacing it with PromptProxy endpoint, giving you control over
+            // rate-limits, token-limits, and endpoint rules.
+            "https://api.prompt-proxy.com/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${apiKey}`,
+                "X-User-Token": idToken,
+              },
+              body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.7,
+              }),
+            }
+          );
+          if (!res.ok) {
+            const error = await res.json();
+            throw new Error(
+              (error.error?.message || error?.message || "API Error") +
+                " (" +
+                res.status +
+                ")"
+            );
+          }
+          const data = await res.json();
+          responseField.textContent =
+            data.choices?.[0]?.message?.content || "[No response]";
+        } catch (err) {
+          responseField.textContent = "Error: " + err.message;
+        }
+      });
+    </script>
+  </body>
+</html>
