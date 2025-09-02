@@ -17,13 +17,15 @@
   </head>
   <body class="min-h-screen flex items-center justify-center bg-stone-100">
     <div class="p-8 w-full max-w-xl">
-      <img
-        src="https://prompt-proxy.com/logo_text.svg"
-        alt="PromptProxy Logo"
-        class="mx-auto h-32 w-auto mb-4"
-        width="240"
-        height="48"
-      />
+      <a href="https://prompt-proxy.com">
+        <img
+          src="https://prompt-proxy.com/logo_text.svg"
+          alt="PromptProxy Logo"
+          class="mx-auto h-32 w-auto mb-4"
+          width="240"
+          height="48"
+        />
+      </a>
       <h1 class="text-5xl font-bold text-gray-900">PromptProxy example</h1>
       <h2 class="text-3xl font-bold text-gray-500 mb-6">Plain HTML</h2>
 
@@ -131,11 +133,11 @@
           if (!res.ok) {
             const error = await res.json();
             throw new Error(
-(error.error?.message || error?.message || "API Error") +
+              (error.error?.message || error?.message || "API Error") +
                 " (" +
                 res.status +
                 ")"
-);
+            );
           }
           const data = await res.json();
           responseField.textContent =
