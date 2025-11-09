@@ -2,14 +2,14 @@
 <img src="https://prompt-proxy.com/logo_text.svg" height="100" alt="PromptProxy Logo" />
 
 # PromptProxy: *your AI apps, our billing back-end*
-Skip developing the boring stuff. [PromptProxy](https://prompt-proxy.com) handles your **billing** back-end and **user crediting**, so you can focus on shipping AI features.
+Skip developing the boring stuff. [PromptProxy](https://prompt-proxy.com?utm_source=github&utm_medium=template&utm_campaign=templates-repo) handles your **billing** back-end and **user crediting**, so you can focus on shipping AI features.
 
 
 ## Getting started
 PromptProxy is a proxy for any LLM API, such as OpenAI, Anthropic, HuggingFace, OpenRouter, and more. Just replace the API endpoint with ours.
 
 1. **Get your API key**  
-Sign up at [prompt-proxy.com](https://prompt-proxy.com) and get your API key from the dashboard.
+Sign up at [prompt-proxy.com](https://prompt-proxy.com?utm_source=github&utm_medium=template&utm_campaign=templates-repo) and get your API key from the dashboard.
 
 2. **Set rules an limits** ([details](#configuration))  
 Set rate-limits, token-limits, and endpoint rules in the dashboard to control costs and usage.
@@ -103,7 +103,7 @@ const res = await fetch(
 
 ## Configuration
 
-Configurations are set in the [PromptProxy dashboard](https://prompt-proxy.com/dashboard), but are documented here for reference.
+Configurations are set in the [PromptProxy dashboard](https://prompt-proxy.com/dashboard?utm_source=github&utm_medium=template&utm_campaign=templates-repo), but are documented here for reference.
 
 - [Proxy modes](#proxy-modes) configure the body of the requests.
 - [Authentication](#authentication) configures how users are identified.
